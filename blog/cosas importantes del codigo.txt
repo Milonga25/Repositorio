@@ -1,5 +1,0 @@
-usuarios y contraseñas de admin de django
-
-user: Milonga
-email: root@localhost.com
-password: 49104463
