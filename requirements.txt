@@ -24,3 +24,10 @@ virtualenv==20.35.4
 #       'PASSWORD': '49104463',
 #   }
 #}
+
+#usuarios y contraseñas de pythonanywhere
+
+#Nombre de usuario: Milonga
+#Dirección de email: Milo.nga@hotmail.com
+#Password: 
+#Password (again): 
