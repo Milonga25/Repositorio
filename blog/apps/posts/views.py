@@ -36,3 +36,9 @@ class PostDetailView(DetailView):
         model = Comentario
         form_class = ComentarioForm
         template_name = 'comentario/agregarComentario.html'
+        success_url = 'comentario/comentarios/'
+
+        def form_valid(self, form):
+            form.instance.usuario = self.request.user
+            form.instance.posts_id = self.kwargs['id']
+            return super().form_valid(form)
