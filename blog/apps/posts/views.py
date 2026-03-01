@@ -1,5 +1,8 @@
-from .models import Post
+from .models import Post, Comentario
+from .forms import ComentarioForm
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView
 
 class PostListView(ListView):
     model = Post
