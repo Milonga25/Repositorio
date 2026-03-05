@@ -27,7 +27,7 @@ class LoginUsuario(LoginView):
 
 
 class LogoutUsuario(LogoutView):
-    template_name = 'registration/logout.html'
 
     def get_success_url(self):
         messages.success(self.request, 'Logout exitoso')
+        return reverse('index')
