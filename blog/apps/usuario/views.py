@@ -4,6 +4,9 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth.views import PasswordResetDoneView
+from django.contrib.auth.models import Group
 
 # Create your views here.
 

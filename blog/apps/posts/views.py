@@ -3,6 +3,7 @@ from .forms import ComentarioForm
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
+from django.shortcuts import render, redirect
 
 class PostListView(ListView):
     model = Post
@@ -43,5 +44,5 @@ class PostDetailView(DetailView):
 
         def form_valid(self, form):
             form.instance.usuario = self.request.user
-            form.instance.posts_id = self.kwargs['id']
+            form.instance.posts_id = self.kwargs['posts_id']
             return super().form_valid(form)

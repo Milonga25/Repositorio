@@ -9,9 +9,10 @@ from django.conf import settings
 
 #Categoria
 class Categoria(models.Model):
+    nombre_categoria = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.nombre
+        return self.nombre_categoria
 
 class Post(models.Model):
     titulo = models.CharField(max_length=50, null=False)
