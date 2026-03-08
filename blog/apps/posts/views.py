@@ -1,5 +1,6 @@
-from .models import Post, Comentario
-from .forms import ComentarioForm
+from .models import Post, Comentario, Categoria
+from django.urls import reverse_lazy
+from .forms import ComentarioForm, CrearPostForm, NuevaCategoriaForm
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
@@ -35,14 +36,32 @@ class PostDetailView(DetailView):
             context = self.get_context_data(**kwargs)
             context['form'] = form
             return self.render_to_response(context)
-    
-    class ComentarioCreateView(LoginRequiredMixin, CreateView):
-        model = Comentario
-        form_class = ComentarioForm
-        template_name = 'comentario/agregarComentario.html'
-        success_url = 'comentario/comentarios/'
 
-        def form_valid(self, form):
-            form.instance.usuario = self.request.user
-            form.instance.posts_id = self.kwargs['posts_id']
-            return super().form_valid(form)
+class PostCreateView(CreateView):
+    model = Post
+    form_class = CrearPostForm
+    template_name = 'posts/crear_post.html'
+    success_url = reverse_lazy('apps.posts:posts')
+
+class CategoriaCreateView(CreateView):
+    model = Categoria
+    form_class = NuevaCategoriaForm
+    template_name = 'posts/crear_categoria.html'
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            return next_url
+        else:
+            return reverse_lazy('apps.posts:crear_post')
+    
+class ComentarioCreateView(LoginRequiredMixin, CreateView):
+    model = Comentario
+    form_class = ComentarioForm
+    template_name = 'comentario/agregarComentario.html'
+    success_url = 'comentario/comentarios/'
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        form.instance.posts_id = self.kwargs['posts_id']
+        return super().form_valid(form)
