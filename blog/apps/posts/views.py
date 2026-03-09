@@ -42,13 +42,13 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CrearPostForm
     login_url = 'login'
-    permission_denied_message = "Debes iniciar sesión para crear contenido." # Mensaje personalizado
     template_name = 'posts/crear_post.html'
     success_url = reverse_lazy('apps.posts:posts')
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.info(request, self.permission_denied_message)
+            messages.info(request, "¡Hola! 👋.")
+            messages.info(request, "Para poder compartir tus ideas y crear un post, necesitamos que te identifiques.")
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
 

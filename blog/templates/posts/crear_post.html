@@ -5,14 +5,14 @@
     <div class="container-fluid" style="margin: 100px;">
         {% if user.is_authenticated %}
             <div class="container-fluid" style="margin-bottom: 20px;">
-                <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}" class="btn btn-primary">Crear nueva categoria</a>
+                <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}" class="btn btn-primary" style="background-color: rgb(7, 161, 149); border-radius: 15px; color: white; text-decoration: none; padding: 8px;">Crear nueva categoria</a>
             </div>
 
             <h1>Crear Post</h1>
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <input type="submit" value="Guardar">
+                <input type="submit" value="Guardar" style="background-color: rgb(7, 161, 149); color: white; border-radius: 15px; padding: 8px;">
             </form>
         {% else %}
             <div class="alert alert-danger">

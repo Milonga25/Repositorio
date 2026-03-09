@@ -3,22 +3,22 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.views import PasswordResetDoneView
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
 # Create your views here.
 
 class RegistrarUsuario(CreateView):
-    # ... (tus otros atributos)
+    model = User
+    template_name = 'registration/registrar.html'
+    form_class = RegistroUsuarioForm
+
     def get_success_url(self):
-        # 1. Intenta obtener 'next' del formulario o de la URL
         next_url = self.request.POST.get('next') or self.request.GET.get('next')
-        # 2. Verifica que 'next' NO sea None, ni la palabra "None", ni esté vacío
         if next_url and next_url != 'None':
             return next_url
-        # 3. SI NO HAY NEXT: Mándalo al login o al index (usa el nombre de tu URL)
         return reverse_lazy('apps.usuario:login') 
 
 class LoginUsuario(LoginView):

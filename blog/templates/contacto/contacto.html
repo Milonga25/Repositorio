@@ -20,13 +20,13 @@
                     {{ form.as_table }}
                 </table>
                 <br>
-                <input type="submit" value="Enviar">
+                <input type="submit" value="Enviar" style="background-color: rgb(7, 161, 149); color: white; border-radius: 15px; padding: 8px;">
             </form>
         {% else %}
 
             <h1>Atención</h1>
             <p>Debes iniciar sesión para poder enviar un mensaje.</p>
-            <a href="{% url 'login' %}" style="color: blue;">Ir al Inicio de Sesión</a>
+            <a href="{% url 'login' %}" style="color: rgb(0, 93, 233);">Ir al Inicio de Sesión</a>
         {% endif %}
     </div>
 </center>

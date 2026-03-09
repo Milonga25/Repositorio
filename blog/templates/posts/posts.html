@@ -6,7 +6,7 @@
 <div class="container-fluid" style="margin: 200px;">
 
 <div class="container-fluid" style="margin-top: 300px;">
-    <a id="boton_post" href="{% url 'apps.posts:crear_post' %}">Crear nuevo post</a>
+    <a id="boton_post" href="{% url 'apps.posts:crear_post' %}" style="background-color: rgb(68, 150, 68); border-radius: 15px; color: white; text-decoration: none; padding: 10px;">Crear nuevo Post</a>
 </div>
 
     {% for i in posts %}
@@ -15,9 +15,7 @@
         <li>{{ i.subtitulo }}</li>
         <li>{{ i.categoria }}</li>
         <br>
-        <a id="boton_post" href="{% url 'apps.posts:post_individual' i.id %}">
-            Ingresa a este Post
-        </a>
+        <a id="boton_post" href="{% url 'apps.posts:post_individual' i.id %}" style="background-color: rgb(0, 196, 179); border-radius: 15px; color: white; text-decoration: none; padding: 8px;">Ingresa a este Post</a>
 
         {% empty %}
         <h1>No hay registros</h1>
