@@ -11,23 +11,22 @@ from django.contrib.auth.models import Group
 # Create your views here.
 
 class RegistrarUsuario(CreateView):
-    template_name = 'registration/registrar.html'
-    form_class = RegistroUsuarioForm
-
-    def form_valid(self, form):
-        messages.success(self.request, 'Registro exitoso. Por favor, inicia sesión.')
-        form.save()
-
-        return redirect('apps.usuario:registrar')
+    # ... (tus otros atributos)
+    def get_success_url(self):
+        # 1. Intenta obtener 'next' del formulario o de la URL
+        next_url = self.request.POST.get('next') or self.request.GET.get('next')
+        # 2. Verifica que 'next' NO sea None, ni la palabra "None", ni esté vacío
+        if next_url and next_url != 'None':
+            return next_url
+        # 3. SI NO HAY NEXT: Mándalo al login o al index (usa el nombre de tu URL)
+        return reverse_lazy('apps.usuario:login') 
 
 class LoginUsuario(LoginView):
-    template_name = 'registration/login.html'
-
     def get_success_url(self):
-        messages.success(self.request, 'Login exitoso')
-
-        return reverse('apps.usuario:login')
-
+        next_url = self.request.POST.get('next') or self.request.GET.get('next')
+        if next_url and next_url != 'None':
+            return next_url
+        return reverse_lazy('apps.posts:posts') 
 
 class LogoutUsuario(LogoutView):
 

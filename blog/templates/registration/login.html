@@ -6,24 +6,27 @@
 {% block contenido %}
 <center>
 
-    <form method="POST" style="margin-top: 300px;">
-        <h1 class="h1">Iniciar sesión</h1>
+<form method="POST" style="margin-top: 300px;">
+    <h1 class="h1">Iniciar sesión</h1>
+    <br>
+    <div class="messages">
+        {% for message in messages %}
+            <table{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</table>
+        {% endfor %}
+    </div>
+    <br>
+    {% csrf_token %}
+    {% if request.GET.next %}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    {% endif %}
+    <div class="container">
+        <table>{{ form }}</table>
         <br>
-        <div class="messages">
-            {% for message in messages %}
-                <table{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</table>
-            {% endfor %}
-        </div>
-        <br>
-        {% csrf_token %}
-        <div class="container">
-            <table>{{ form }}</table>
-            <br>
-            <a style="color: black;" href="{% url 'apps.usuario:registrar' %}">Todavía no esta registrado? Registrate</a>
-            <br><br>
-            <button type="submit" class="btn btn-success btn-lg px-3">Iniciar sesión</button>
-        </div>
-    </form>
+        <a style="color: black;" href="{% url 'apps.usuario:registrar' %}{% if next %}?next={{ next }}{% endif %}">Todavía no esta registrado? Registrate</a>
+        <br><br>
+        <button type="submit" class="btn btn-success btn-lg px-3">Iniciar sesión</button>
+    </div>
+</form>
 
 </center>
 {% endblock %}

@@ -5,6 +5,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 class PostListView(ListView):
     model = Post
@@ -37,11 +38,20 @@ class PostDetailView(DetailView):
             context['form'] = form
             return self.render_to_response(context)
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CrearPostForm
+    login_url = 'login'
+    permission_denied_message = "Debes iniciar sesión para crear contenido." # Mensaje personalizado
     template_name = 'posts/crear_post.html'
     success_url = reverse_lazy('apps.posts:posts')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.info(request, self.permission_denied_message)
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
+
 
 class CategoriaCreateView(CreateView):
     model = Categoria

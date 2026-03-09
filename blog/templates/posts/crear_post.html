@@ -1,20 +1,26 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-
 <center>
-    <div class="container-fluid" style="margin: 200px;">
-    <div class="container-fluid" style="margin-top: 300px;">
-        <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}">Crear nueva categoria</a>
+    <div class="container-fluid" style="margin: 100px;">
+        {% if user.is_authenticated %}
+            <div class="container-fluid" style="margin-bottom: 20px;">
+                <a id="boton_post" href="{% url 'apps.posts:crear_categoria' %}" class="btn btn-primary">Crear nueva categoria</a>
+            </div>
+
+            <h1>Crear Post</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Guardar">
+            </form>
+        {% else %}
+            <div class="alert alert-danger">
+                <h1>¡Hola! 👋</h1>
+                <p>Para poder compartir tus ideas y crear un post, necesitamos que te identifiques.</p>
+                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-dark">Iniciar Sesión ahora</a>
+            </div>
+        {% endif %}
     </div>
-
-    <h1>Crear Post</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Guardar">
-    </form>
-
-</div>
 </center>
 {% endblock %}

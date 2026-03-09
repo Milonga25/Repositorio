@@ -135,3 +135,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),'media')
 
 LOGOUT_REDIRECT_URL = 'index'
+
+LOGIN_URL = 'login' 
+LOGIN_REDIRECT_URL = 'apps.posts:crear_post'
