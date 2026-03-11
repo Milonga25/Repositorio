@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import index #importamos desde la views la funcion index
+from .views import index, acerca_de_nosotros #importamos desde la views la funcion index
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -25,6 +25,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'), #la declaramos dentro urlpatterns
+    path('acerca_de/', acerca_de_nosotros, name='acerca_de_nosotros'),
     path('', include('apps.posts.urls')),
     path('', include('apps.contacto.urls')),
     path('', include('apps.usuario.urls')),

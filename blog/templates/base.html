@@ -5,6 +5,8 @@
     <head>
         <title>{% block title %} Página de inicio {% endblock title %}</title>
         <!-- Required meta tags -->
+
+        <!-- Boopstrap CSS -->
         <meta charset="utf-8" />
         <meta
             name="viewport"
@@ -16,31 +18,36 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+
+        <!-- AQUÍ AGREGAS EL BLOQUE PARA CSS PERSONALIZADO -->
+        {% block extra_css %}{% endblock extra_css %}
+        
     </head>
     <body>
         <header>
             <a class="flex-sm-fill text-sm-center nav-link active" href="#">
                 <img src="{% static 'img/informatorio.jpg' %}"style="max-width: 300px; margin: 30px;">
             </a>
-            <nav class="nav nav-pills flex-column flex-sm-row">
-                <ul class="nav-links">
-                    <li><a href="{% url 'index' %}">Inicio</a></li>
-                    <li><a href="#">Acerca de nosotros</a></li>
-                    <li><a href="{% url 'apps.posts:posts' %}">Posts</a></li>
-                    <li><a href="{% url 'apps.contacto:contacto' %}">Contacto</a></li>
+            <nav class="nav nav-pills flex-column flex-sm-row" style="color: white; text-decoration: none; background-color: rgb(0, 219, 190); margin-top: 10px;">
+                <ul class="nav-links d-flex flex-column align-items-center justify-content-center mx-auto list-unstyled" style="width: fit-content; margin-top: 25px;">
+                    <li class="mb-2"><a href="{% url 'index' %}" style="color: white; text-decoration: none; padding: 5px; border-radius: 15px; background-color: darkblue; ">Inicio</a></li>
+                    <li class="mb-2"><a href="{% url 'acerca_de_nosotros' %}" style="color: white; text-decoration: none; padding: 5px; border-radius: 15px; background-color: darkblue; ">Acerca de nosotros</a></li>
+                    <li class="mb-2"><a href="{% url 'apps.posts:posts' %}" style="color: white; text-decoration: none; padding: 5px; border-radius: 15px; background-color: darkblue; ">Posts</a></li>
+                    <li class="mb-2"><a href="{% url 'apps.contacto:contacto' %}" style="color: white; text-decoration: none; padding: 5px; border-radius: 15px; background-color: darkblue; ">Contacto</a></li>
                     {% if user.is_authenticated %}
                         <li>
-                            <form action="{% url 'apps.usuario:logout' %}" method="post" style="display:inline;">
+                            <form action="{% url 'apps.usuario:logout' %}" method="post" style="display:inline; color: white; text-decoration: none;">
                             {% csrf_token %}
-                            <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer; display:inline; padding:0; font: inherit; text-decoration: underline; vertical-align: baseline;">Cerrar Sesión</button>
+                            <button type="submit" class="nav-link mb-2" style="background:none; border:none; cursor:pointer; display:inline; padding:5px; font: inherit; text-decoration: underline; vertical-align: baseline; border-radius: 15px; background-color: darkblue; color:white; text-decoration: none;">Cerrar Sesión</button>
                             </form>
                         </li>
                     {% else %}
-                        <li><a href="{% url 'apps.usuario:login' %}">Iniciar sesión</a></li>
+                        <li class="mb-2"><a href="{% url 'apps.usuario:login' %}" style="color: white; text-decoration: none; padding: 5px; border-radius: 15px; background-color: darkblue;">Iniciar sesión</a></li>
                     {% endif %}
                 </ul>
             </nav>
-
+        </header>
+        
             {% block contenido %}
 
             {% endblock %}

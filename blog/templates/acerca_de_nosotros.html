@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extra_css %}
+    <!-- Esto se insertará en el head del base solo cuando entres a esta página -->
+    <link rel="stylesheet" href="{% static 'css/acerca_de_nosotros.css' %}">
+{% endblock extra_css %}
+
+{% block contenido %}
+    <div class="container mt-5">
+        <h1 class="titulo-personalizado">Acerca de nosotros</h1>
+        <p>Somos un equipo apasionado por la creación de contenido y la comunidad que construimos alrededor de él.</p>
+    </div>
+    {% endblock %}
